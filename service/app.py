@@ -48,7 +48,7 @@ class MainClass(Resource):
 			response = jsonify({
 				"statusCode": 200,
 				"status": "Prediction made",
-				"result": "The type of iris plant is: " + types[prediction[0]]
+				"result": "The predict Sales are: " + types[prediction[0]]
 				})
 			response.headers.add('Access-Control-Allow-Origin', '*')
 			return response

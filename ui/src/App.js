@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image'
 import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
@@ -83,7 +84,14 @@ class App extends Component {
     return (
       <Container>
         <div>
-          <h1 className="title">Iris Plant Classifier</h1>
+          <Image
+            rounded
+            width={171}
+            height={180}
+            alt="171x180"
+            src={require(`./wavestone_logo.png`)}
+          />
+          <h1 className="title">SALES PREDICTION</h1>
         </div>
         <div className="content">
           <Form>

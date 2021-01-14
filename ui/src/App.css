@@ -1,7 +1,10 @@
 html, body {
-  background: url('https://images.unsplash.com/photo-1525024917383-14967b1980f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80') center center no-repeat;
+  background: #4776E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   background-size: cover;
-  color: white;
+  color: black;
   height: 100%;
   width: 100%;
 }
@@ -17,13 +20,11 @@ html, body {
 }
 
 .title {
-  padding-top: 100px;
   text-align: center;
-  text-transform: uppercase;
   font-weight: 600;
   font-size: 4em;
   letter-spacing: 0.15rem;
-  color: #fff;
+  color: whitesmoke;
 }
 
 label {
