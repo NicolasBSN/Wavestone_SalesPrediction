@@ -16,10 +16,21 @@ class App extends Component {
     this.state = {
       isLoading: false,
       formData: {
-        sepalLength: 4,
-        sepalWidth: 2,
-        petalLength: 1,
-        petalWidth: 0
+        storeNumber: 1,
+        dayWeek: 1,
+        isOpen: 1,
+        isPromotion: 0,
+        isStateHoliday: 'a', // '0':0, 'a':1, 'b':2 'c':3 'd':4
+        isSchoolHoliday: 0, 
+        storeType: 'a', // 'a':1, 'b':2 'c':3 'd':4
+        assort: 'a', // 'a':1, 'b':2 'c':3 
+        hasCompet: 0,
+        month: 1,
+        year: 2015,
+        day: 1,
+        promJan: 0,
+        promFeb: 0,
+        promMar: 0,
       },
       result: ""
     };
@@ -65,21 +76,22 @@ class App extends Component {
     const formData = this.state.formData;
     const result = this.state.result;
 
-    var sepalLengths = []
-    for (var i = 4; i <= 7; i = +(i + 0.1).toFixed(1)) {
-      sepalLengths.push(<option key = {i} value = {i}>{i}</option>);
+    var dayWeek = []
+    for (var i = 1; i < 8; i += 1) {
+      dayWeek.push(<option key = {i} value = {i}>{i}</option>);
     }
-    var sepalWidths = []
-    for (var i = 2; i <= 4; i = +(i + 0.1).toFixed(1)) {
-      sepalWidths.push(<option key = {i} value = {i}>{i}</option>);
+    var month = []
+    for (var i = 1; i < 13; i += 1) {
+      month.push(<option key = {i} value = {i}>{i}</option>);
     }
-    var petalLengths = []
-    for (var i = 1; i <= 6; i = +(i + 0.1).toFixed(1)){
-      petalLengths.push(<option key = {i} value = {i}>{i}</option>);
-    }
-    var petalWidths = []
-    for (var i = 0.1; i <= 3; i = +(i + 0.1).toFixed(1)) {
-      petalWidths.push(<option key = {i} value = {i}>{i}</option>);
+    var yesNo = []
+    for (var i = 0; i < 2; i += 1) {
+      if(i==0){
+        yesNo.push(<option key = {i} value = {i}>No</option>);
+      }
+      else{
+        yesNo.push(<option key = {i} value = {i}>Yes</option>);
+      }
     }
     return (
       <Container>
@@ -97,45 +109,154 @@ class App extends Component {
           <Form>
             <Form.Row>
               <Form.Group as={Col}>
-                <Form.Label>Sepal Length</Form.Label>
+                <Form.Label>Store number</Form.Label>
                 <Form.Control 
-                  as="select"
-                  value={formData.sepalLength}
-                  name="sepalLength"
+                  type="text"
+                  name="storeNumber"
+                  value={formData.storeNumber}
                   onChange={this.handleChange}>
-                  {sepalLengths}
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label>Sepal Width</Form.Label>
+                <Form.Label>Store type</Form.Label>
+                <Form.Control 
+                  type="text"
+                  name="storeType"
+                  value={formData.storeType}
+                  onChange={this.handleChange}>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Day of the week</Form.Label>
                 <Form.Control 
                   as="select"
-                  value={formData.sepalWidth}
-                  name="sepalWidth"
+                  value={formData.dayWeek}
+                  name="dayWeek"
                   onChange={this.handleChange}>
-                  {sepalWidths}
+                  {dayWeek}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Is there a state holiday</Form.Label>
+                <Form.Control 
+                  type="text"
+                  value={formData.isStateHoliday}
+                  name="isStateHoliday"
+                  onChange={this.handleChange}>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Is there a school holiday</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.isSchoolHoliday}
+                  name="isSchoolHoliday"
+                  onChange={this.handleChange}>
+                  {yesNo}
                 </Form.Control>
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col}>
-                <Form.Label>Petal Length</Form.Label>
+                <Form.Label>Month</Form.Label>
                 <Form.Control 
                   as="select"
-                  value={formData.petalLength}
-                  name="petalLength"
+                  value={formData.month}
+                  name="month"
                   onChange={this.handleChange}>
-                  {petalLengths}
+                  {month}
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label>Petal Width</Form.Label>
+                <Form.Label>Year</Form.Label>
+                <Form.Control 
+                  type="text"
+                  value={formData.year}
+                  name="year"
+                  onChange={this.handleChange}>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Day</Form.Label>
                 <Form.Control 
                   as="select"
-                  value={formData.petalWidth}
-                  name="petalWidth"
+                  value={formData.day}
+                  name="day"
                   onChange={this.handleChange}>
-                  {petalWidths}
+                  {dayWeek}
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>Is the store open</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.isOpen}
+                  name="isOpen"
+                  onChange={this.handleChange}>
+                  {yesNo}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Is the store running a promotion</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.isPromotion}
+                  name="isPromotion"
+                  onChange={this.handleChange}>
+                  {yesNo}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>What is the assortement</Form.Label>
+                <Form.Control 
+                  type="text"
+                  value={formData.assort}
+                  name="assort"
+                  onChange={this.handleChange}>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Does the store have competition</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.hasCompet}
+                  name="hasCompet"
+                  onChange={this.handleChange}>
+                  {yesNo}
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>Is the store running a promotion on January, April, July and October ?</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.promJan}
+                  name="promJan"
+                  onChange={this.handleChange}>
+                  {yesNo}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Is the store running a promotion on February, May, August and November ?</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.promFeb}
+                  name="promFeb"
+                  onChange={this.handleChange}>
+                  {yesNo}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Is the store running a promotion on March, June, September, December ?</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={formData.promMar}
+                  name="promMar"
+                  onChange={this.handleChange}>
+                  {yesNo}
                 </Form.Control>
               </Form.Group>
             </Form.Row>

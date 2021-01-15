@@ -6,27 +6,13 @@ import sys
 
 flask_app = Flask(__name__)
 app = Api(app = flask_app, 
-		  version = "1.0", 
-		  title = "Iris Plant identifier", 
-		  description = "Predict the type of iris plant")
+		  version = "0.1", 
+		  title = "Sales Predictions", 
+		  description = "Predict the sales of the company")
 
 name_space = app.namespace('prediction', description='Prediction APIs')
 
-model = app.model('Prediction params', 
-				  {'sepalLength': fields.Float(required = True, 
-				  							   description="Sepal Length", 
-    					  				 	   help="Sepal Length cannot be blank"),
-				  'sepalWidth': fields.Float(required = True, 
-				  							   description="Sepal Width", 
-    					  				 	   help="Sepal Width cannot be blank"),
-				  'petalLength': fields.Float(required = True, 
-				  							description="Petal Length", 
-    					  				 	help="Petal Length cannot be blank"),
-				  'petalWidth': fields.Float(required = True, 
-				  							description="Petal Width", 
-    					  				 	help="Petal Width cannot be blank")})
-
-classifier = joblib.load('classifier.joblib')
+# classifier = joblib.load('model.joblib')
 
 @name_space.route("/")
 class MainClass(Resource):
@@ -38,17 +24,25 @@ class MainClass(Resource):
 		response.headers.add('Access-Control-Allow-Methods', "*")
 		return response
 
-	@app.expect(model)		
 	def post(self):
 		try: 
 			formData = request.json
 			data = [val for val in formData.values()]
-			prediction = classifier.predict(np.array(data).reshape(1, -1))
-			types = { 0: "Iris Setosa", 1: "Iris Versicolour ", 2: "Iris Virginica"}
+			values_dict = {
+				'0': 0,
+				'a': 1,
+				'b': 2,
+				'c': 3,
+				'd': 4,
+			}
+			data[4] = values_dict[data[4]]
+			data[6] = values_dict[data[6]]
+			data[7] = values_dict[data[7]]
+			# prediction = model.predict(np.array(data).reshape(1, -1))
 			response = jsonify({
 				"statusCode": 200,
 				"status": "Prediction made",
-				"result": "The predict Sales are: " + types[prediction[0]]
+				"result": "The predict Sales are: " + prediction[0]]
 				})
 			response.headers.add('Access-Control-Allow-Origin', '*')
 			return response
